@@ -6,18 +6,42 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "node-sass": "^4.13.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "NODE_PATH=./src;react-scripts start",
+    "build": "NODE_PATH=./src;react-scripts build",
+    "test": "NODE_PATH=./src;react-scripts test",
+    "eject": "NODE_PATH=./src;react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "rules": {
+      "indent": [
+        "error",
+        2
+      ],
+        "semi": [
+        "error",
+        "never"
+      ],
+      "react/jsx-tag-spacing": [
+        "error",
+        {
+          "beforeClosing": "never"
+        }
+      ],
+      "react/jsx-curly-spacing": [
+        "error",
+        {
+          "when": "always",
+          "children": true
+        }
+      ]
+    }
   },
   "browserslist": {
     "production": [
