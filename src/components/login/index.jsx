@@ -6,6 +6,8 @@ import './index.scss'
 import FormInput from 'components/form-input'
 import FormButton from 'components/form-button'
 
+import { signInWithGoogle } from 'firebase-utils'
+
 class Login extends React.Component {
   constructor(props) {
     super(props)
@@ -18,12 +20,17 @@ class Login extends React.Component {
 
   handleChange = e => {
     const { value, name } = e.target
-    this.setState({ [name]: value })
+    this.setState({
+      [name]: value
+    })
   }
 
   handleSubmit = e => {
     e.preventDefault()
-    this.setState({ email:'', password:'' })
+    this.setState({
+      email: '',
+      password: ''
+    })
   }
 
   render() {
@@ -41,7 +48,7 @@ class Login extends React.Component {
             type="email"
             label="email"
             value={ this.state.email }
-            handleChange="{this.handleChange}"
+            handleChange={ this.handleChange }
             required
           />
           <FormInput
@@ -49,14 +56,24 @@ class Login extends React.Component {
             type="password"
             label="password"
             value={ this.state.password }
-            handleChange="{this.handleChange}"
+            handleChange={ this.handleChange }
             required
           />
-          <FormButton
-            type="submit"
+          <div
+            className="buttons"
           >
-            Sign In
-          </FormButton>
+            <FormButton
+              type="submit"
+            >
+              Sign In
+            </FormButton>
+            <FormButton
+              onClick={ signInWithGoogle }
+              isGoogleSignIn
+            >
+              Sign In with Google
+            </FormButton>
+          </div>
         </form>
       </div>
     )

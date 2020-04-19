@@ -3,9 +3,9 @@ import React from 'react'
 
 import './index.scss'
 
-const FormButton = ({ children, ...etcProps }) => (
+const FormButton = ({ children, isGoogleSignIn, ...etcProps }) => (
   <button
-    className="form-button"
+    className={ `${isGoogleSignIn ? 'google-sign-in' : ''} form-button` }
     { ...etcProps }
   >
     { children }

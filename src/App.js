@@ -7,18 +7,55 @@ import Header from 'components/header'
 import HomePage from 'pages/home'
 import ShopPage from 'pages/shop'
 import AuthPage from 'pages/auth'
+import { auth } from 'firebase-utils'
 
-function App() {
-  return (
-    <div>
-      <Header />
-      <Switch>
-        <Route path="/" component={ HomePage } exact />
-        <Route path="/shop" component={ ShopPage } />
-        <Route path="/auth" component={ AuthPage } />
-      </Switch>
-    </div>
-  )
+const AcctPage = null
+
+class App extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      currentUser: null
+    }
+  }
+
+  unsubscribeFromAuth = null
+
+  componentDidMount() {
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(user => {
+      this.setState({ currentUser: user })
+      console.log(user)
+    })
+  }
+
+  componentWillUnmount() {
+    this.unsubscribeFromAuth()
+  }
+
+  render() {
+    return (
+      <div>
+        <Header
+          currentUser={ this.state.currentUser }
+        />
+        <Switch>
+          <Route
+            path="/"
+            component={ HomePage }
+            exact
+          />
+          <Route
+            path="/shop"
+            component={ ShopPage }
+          />
+          <Route
+            path="/auth"
+            component={ this.state.currentUser ? AcctPage : AuthPage }
+          />
+        </Switch>
+      </div>
+    )
+  }
 }
 
 export default App
