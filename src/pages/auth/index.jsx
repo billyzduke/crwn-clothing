@@ -1,15 +1,15 @@
 // <AuthPage />
 import React from 'react'
 
-import './index.scss'
-
-import Login from 'components/login'
+import AcctLogin from 'components/acct-login'
+import AcctSignUp from 'components/acct-signup'
 
 const AuthPage = () => (
   <div
-    className="auth"
+    className="acct-auth"
   >
-    <Login />
+    <AcctLogin />
+    <AcctSignUp />
   </div>
 )
 

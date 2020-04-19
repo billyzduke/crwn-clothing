@@ -7,7 +7,7 @@ import Header from 'components/header'
 import HomePage from 'pages/home'
 import ShopPage from 'pages/shop'
 import AuthPage from 'pages/auth'
-import { auth } from 'firebase-utils'
+import { auth, createUserProfileDoc } from 'firebase-utils'
 
 const AcctPage = null
 
@@ -22,9 +22,20 @@ class App extends React.Component {
   unsubscribeFromAuth = null
 
   componentDidMount() {
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(user => {
-      this.setState({ currentUser: user })
-      console.log(user)
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+      if (userAuth) {
+        const userRef = await createUserProfileDoc(userAuth)
+        userRef.onSnapshot(snapShot => {
+          this.setState({
+            currentUser: {
+              id: snapShot.id,
+              ...snapShot.data()
+            }
+          })
+        })
+      } else {
+        this.setState({ currentUser: userAuth })
+      }
     })
   }
 

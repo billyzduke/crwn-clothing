@@ -1,4 +1,4 @@
-// <Login />
+// <AcctLogin />
 import React from 'react'
 
 import './index.scss'
@@ -8,7 +8,7 @@ import FormButton from 'components/form-button'
 
 import { signInWithGoogle } from 'firebase-utils'
 
-class Login extends React.Component {
+class AcctLogin extends React.Component {
   constructor(props) {
     super(props)
 
@@ -41,6 +41,7 @@ class Login extends React.Component {
         <h2>I already have an account</h2>
         <span>Sign in with your email and password</span>
         <form
+          className="login-form"
           onSubmit={ this.handleSubmit }
         >
           <FormInput
@@ -80,4 +81,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login
+export default AcctLogin
