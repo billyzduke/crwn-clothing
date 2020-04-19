@@ -21,6 +21,13 @@
   "eslintConfig": {
     "extends": "react-app",
     "rules": {
+      "comma-spacing": [
+        "error",
+        {
+          "before": false,
+          "after": true
+        }
+      ],
       "no-multiple-empty-lines": [
         "error",
         {
@@ -45,6 +52,20 @@
         "error",
         "never"
       ],
+      "react/jsx-closing-bracket-location": [
+        "error",
+        "line-aligned"
+      ],
+      "react/jsx-first-prop-new-line": [
+        "error",
+        "always"
+      ],
+      "react/jsx-max-props-per-line": [
+        "error",
+        {
+          "maximum": 1
+        }
+      ],
       "react/jsx-tag-spacing": [
         "error",
         {
@@ -56,6 +77,13 @@
         {
           "when": "always",
           "children": true
+        }
+      ],
+      "react/self-closing-comp": [
+        "error",
+        {
+          "component": true,
+          "html": true
         }
       ]
     }

@@ -6,6 +6,7 @@ import 'App.scss'
 import Header from 'components/header'
 import HomePage from 'pages/home'
 import ShopPage from 'pages/shop'
+import AuthPage from 'pages/auth'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Switch>
         <Route path="/" component={ HomePage } exact />
         <Route path="/shop" component={ ShopPage } />
+        <Route path="/auth" component={ AuthPage } />
       </Switch>
     </div>
   )
