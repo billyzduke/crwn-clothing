@@ -42,6 +42,8 @@ class AcctSignUp extends React.Component {
         password
       )
 
+      await createUserProfileDoc(user, { displayName })
+
       this.setState({
         displayName: '',
         email: '',

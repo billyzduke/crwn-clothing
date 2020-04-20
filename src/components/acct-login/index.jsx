@@ -6,7 +6,7 @@ import './index.scss'
 import FormInput from 'components/form-input'
 import FormButton from 'components/form-button'
 
-import { signInWithGoogle } from 'firebase-utils'
+import { auth, signInWithGoogle } from 'firebase-utils'
 
 class AcctLogin extends React.Component {
   constructor(props) {
@@ -25,12 +25,21 @@ class AcctLogin extends React.Component {
     })
   }
 
-  handleSubmit = e => {
+  handleSubmit = async e => {
     e.preventDefault()
-    this.setState({
-      email: '',
-      password: ''
-    })
+    const { email, password } = this.state
+
+    try {
+      await auth.signInWithEmailAndPassword(email, password)
+      this.setState({
+        email: '',
+        password: ''
+      })
+    } catch(error) {
+      console.log(error)
+    }
+
+
   }
 
   render() {
