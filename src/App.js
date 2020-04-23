@@ -9,7 +9,7 @@ import HomePage from 'pages/home'
 import ShopPage from 'pages/shop'
 import AuthPage from 'pages/auth'
 import { auth, createUserProfileDoc } from 'firebase-utils'
-import { setCurrentUser } from 'reduxxx/user/actions'
+import { setCurrentUser } from 'stores/user/actions'
 
 class App extends React.Component {
   unsubscribeFromAuth = null
