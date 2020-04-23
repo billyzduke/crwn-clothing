@@ -6,6 +6,7 @@ import './index.scss'
 
 import FormButton from 'components/form-button'
 import CartItem from 'components/cart-item'
+import { selectCartItems } from 'stores/cart/selectors'
 
 const CartDropdown = ({ cartItems }) => (
   <div
@@ -25,8 +26,8 @@ const CartDropdown = ({ cartItems }) => (
   </div>
 )
 
-const mapStateToProps = ({ cart: { cartItems } }) => ({
-  cartItems
+const mapStateToProps = state => ({
+  cartItems: selectCartItems(state)
 })
 
 export default connect(mapStateToProps)(CartDropdown)

@@ -19,7 +19,7 @@ const CartItem = ({ item: { imageUrl, price, name, quantity } }) => (
       >{ name }</span>
       <span
         className="item-price"
-      >{ quantity } x ${ price }</span>
+      >{ quantity } x ${ price.toFixed(2) }</span>
     </div>
   </div>
 )
