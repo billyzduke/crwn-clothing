@@ -9,6 +9,7 @@ import Header from 'components/header'
 import HomePage from 'pages/home'
 import ShopPage from 'pages/shop'
 import AuthPage from 'pages/auth'
+import CheckoutPage from 'pages/checkout'
 import { auth, createUserProfileDoc } from 'firebase-utils'
 import { setCurrentUser } from 'stores/user/actions'
 import { selectCurrentUser } from 'stores/user/selectors'
@@ -50,6 +51,11 @@ class App extends React.Component {
           <Route
             path="/shop"
             component={ ShopPage }
+          />
+          <Route
+            path="/checkout"
+            component={ CheckoutPage }
+            exact
           />
           <Route
             exact

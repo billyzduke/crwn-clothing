@@ -5,6 +5,11 @@ export const addItem = item => ({
   payload: item
 })
 
+export const clearItem = item => ({
+  type: CartActionTypes.CLEAR_ITEM,
+  payload: item
+})
+
 export const toggleCartVisibility = cart => ({
-  type: CartActionTypes.TOGGLE_CART_VISIBILITY
+  type: CartActionTypes.TOGGLE_VISIBILITY
 })
