@@ -15,14 +15,25 @@
 
     .header-block {
       text-transform: capitalize;
-      width: 17%;
+      width: 16%;
+      text-align: center;
 
       &:first-child,
       &:nth-child(2) {
-        width: 21%;
+        width: 19%;
+        text-align: left;
+      }
+      &:nth-child(3),
+      &:nth-child(7) {
+        text-align: right;
+        padding-right: 51px;
+      }
+      &:nth-child(4),
+      &:nth-child(6){
+        width: 4%;
       }
       &:last-child {
-        width: 7%;
+        width: 6%;
       }
     }
   }
@@ -30,7 +41,7 @@
   .cart-total {
     width: 84%;
     margin-top: 30px;
-    align-self: flex-start;  
+    align-self: flex-start;
     display: flex;
     justify-content: space-between;
     span {

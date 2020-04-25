@@ -7,8 +7,16 @@
   font-size: 20px;
   align-items: center;
 
+  > span {
+    width: 4%;
+    text-align: center;
+    &:last-child {
+      width: 6%;
+    }
+  }
+
   .image-container {
-    width: 21%;
+    width: 19%;
     padding-right: 15px;
 
     img {
@@ -17,15 +25,26 @@
     }
   }
   .item-name {
-    width: 21%;
+    text-align: left;
+    width: 19%;
   }
   .item-price,
-  .item-quantity,
   .item-subtotal {
-    width: 17%;
+    width: 16%;
+    text-align: right;
+    padding-right: 50px;
   }
   .item-quantity {
+    justify-content: center;
+    width: 16%;
+    display: flex;
     padding-left: 12px;
+    .q-arrow {
+      cursor: pointer;
+    }
+    .q-value {
+      margin: 0 10px;
+    }
   }
 
   .remove-button {

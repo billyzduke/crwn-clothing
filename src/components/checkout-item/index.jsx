@@ -4,9 +4,9 @@ import { connect } from 'react-redux'
 
 import './index.scss'
 
-import { clearItem } from 'stores/cart/actions'
+import { clearItem, addItem, removeItem } from 'stores/cart/actions'
 
-const CheckoutItem = ({ cartItem, clearItem }) => {
+const CheckoutItem = ({ cartItem, clearItem, addItem, removeItem }) => {
   const { name, imageUrl, price, quantity } = cartItem
   return (
     <div
@@ -28,24 +28,38 @@ const CheckoutItem = ({ cartItem, clearItem }) => {
       <span
         className="item-price"
       >${ price.toFixed(2) }</span>
+      <span>&#10005;</span>
       <span
         className="item-quantity"
-      >x { quantity }</span>
+      >
+        <div
+          className="q-arrow"
+          onClick={ () => removeItem(cartItem) }
+        >&#10094;</div>
+        <span
+          className="q-value"
+        >{ quantity }</span>
+        <div
+          className="q-arrow"
+          onClick={ () => addItem(cartItem) }
+        >&#10095;</div>
+      </span>
+      <span>=</span>
       <span
         className="item-subtotal"
       >${ (quantity * price).toFixed(2) }</span>
       <div
         className="remove-button"
         onClick={ () => clearItem(cartItem) }
-      >
-      &#10005;
-      </div>
+      >&#128465;</div>
     </div>
   )
 }
 
 const mapDispatchToProps = dispatch => ({
-  clearItem: item => dispatch(clearItem(item))
+  clearItem: item => dispatch(clearItem(item)),
+  addItem: item => dispatch(addItem(item)),
+  removeItem: item => dispatch(removeItem(item))
 })
 
 export default connect(null, mapDispatchToProps)(CheckoutItem)

@@ -10,6 +10,11 @@ export const clearItem = item => ({
   payload: item
 })
 
+export const removeItem = item => ({
+  type: CartActionTypes.REMOVE_ITEM,
+  payload: item
+})
+
 export const toggleCartVisibility = cart => ({
   type: CartActionTypes.TOGGLE_VISIBILITY
 })
