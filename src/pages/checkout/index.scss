@@ -8,15 +8,41 @@
 
   .checkout-header {
     width: 100%;
-    padding: 10px 0;
+    padding-top: 10px;
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid darkgrey;
 
     .header-block {
+      padding-bottom: 10px;
       text-transform: capitalize;
       width: 16%;
       text-align: center;
+      border-bottom: 2px solid;
+      border-width: 2px;
+      border-image-slice: 1;
+      border-image-source: linear-gradient(to right, #999999, #b9b9b9);
+      &:nth-child(2) {
+        border-image-source: linear-gradient(to right, #b9b9b9, #c5c5c5);
+      }
+      &:nth-child(3) {
+        border-image-source: linear-gradient(to right, #c5c5c5, #d0d0d0);
+      }
+      &:nth-child(4) {
+        border-image-source: linear-gradient(to right, #d0d0d0, #dcdcdc);
+      }
+      &:nth-child(5) {
+        border-image-source: linear-gradient(to right, #dcdcdc, #e7e7e7);
+      }
+      &:nth-child(6) {
+        border-image-source: linear-gradient(to right, #e7e7e7, #f3f3f3);
+      }
+      &:nth-child(7) {
+        border-image-source: linear-gradient(to right, #f3f3f3, #ffffff);
+      }
+      &:last-child {
+        width: 6%;
+        border-image-source: linear-gradient(to right, #ffffff, #ffffff);
+      }
 
       &:first-child,
       &:nth-child(2) {
@@ -32,14 +58,11 @@
       &:nth-child(6){
         width: 4%;
       }
-      &:last-child {
-        width: 6%;
-      }
     }
   }
 
   .cart-total {
-    width: 84%;
+    width: 94%;
     margin-top: 30px;
     align-self: flex-start;
     display: flex;
@@ -47,6 +70,9 @@
     span {
       font-size: 36px;
       display: inline-block;
+      &:last-child {
+        padding-right: 49px;
+      }
     }
   }
 }

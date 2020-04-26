@@ -20,38 +20,52 @@ const CheckoutItem = ({ cartItem, clearItem, addItem, removeItem }) => {
           alt="item"
         />
       </div>
-      <span
+      <div
         className="item-name"
       >
-        { name }
-      </span>
-      <span
+        <span>{ name }</span>
+      </div>
+      <div
         className="item-price"
-      >${ price.toFixed(2) }</span>
-      <span>&#10005;</span>
-      <span
+      >
+        <span>${ price.toFixed(2) }</span>
+      </div>
+      <div>
+        <span>&#10005;</span>
+      </div>
+      <div
         className="item-quantity"
       >
         <div
-          className="q-arrow"
-          onClick={ () => removeItem(cartItem) }
-        >&#10094;</div>
-        <span
-          className="q-value"
-        >{ quantity }</span>
-        <div
-          className="q-arrow"
-          onClick={ () => addItem(cartItem) }
-        >&#10095;</div>
-      </span>
-      <span>=</span>
-      <span
+          className="q-wrapper"
+        >
+          <div
+            className="q-arrow"
+            onClick={ () => removeItem(cartItem) }
+          >&#10094;</div>
+          <span
+            className="q-value"
+          >{ quantity }</span>
+          <div
+            className="q-arrow"
+            onClick={ () => addItem(cartItem) }
+          >&#10095;</div>
+        </div>
+      </div>
+      <div>
+        <span>=</span>
+      </div>
+      <div
         className="item-subtotal"
-      >${ (quantity * price).toFixed(2) }</span>
+      >
+        <span>${ (quantity * price).toFixed(2) }</span>
+      </div>
       <div
         className="remove-button"
         onClick={ () => clearItem(cartItem) }
-      >&#128465;</div>
+      >
+        <span>&#128465;</span>
+      </div>
     </div>
   )
 }
