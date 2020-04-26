@@ -5,10 +5,9 @@ import { createStructuredSelector } from 'reselect'
 
 import './index.scss'
 
+import { ReactComponent as ShopBag } from 'assets/shopping-bag.svg'
 import { toggleCartVisibility } from 'stores/cart/actions'
 import { selectCartItemsCount } from 'stores/cart/selectors'
-
-import { ReactComponent as ShopBag } from 'assets/shopping-bag.svg'
 
 const CartIcon = ({ toggleCartVisibility, itemCount }) => (
   <div

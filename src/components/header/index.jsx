@@ -4,15 +4,14 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 
+import './index.scss'
+
 import { auth } from 'firebase-utils'
 import CartIcon from 'components/cart-icon'
 import CartDropdown from 'components/cart-dropdown'
+import { ReactComponent as Logo } from 'assets/crown.svg'
 import { selectCartVisible } from 'stores/cart/selectors'
 import { selectCurrentUser } from 'stores/user/selectors'
-
-import { ReactComponent as Logo } from 'assets/crown.svg'
-
-import './index.scss'
 
 const Header = ({ currentUser, visible }) => (
   <div

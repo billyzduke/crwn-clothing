@@ -1,32 +1,35 @@
 // <CollectionPreview />
 import React from 'react'
+import { withRouter } from 'react-router-dom'
 
 import './index.scss'
 
-import CollectionItem from 'components/collection-item'
+import ShopItem from 'components/shop-item'
 
-const CollectionPreview = ({ title, items }) => (
-  <div
-    className="collection-preview"
-  >
-    <h1
-      className="title"
-    >{ title }</h1>
+const CollectionPreview = ({ ckey, products, history, match }) => {
+  console.log('products', products)
+  return (
     <div
-      className="preview"
+      className="collection-preview"
     >
-      {
-        items
-          .filter((item, idx) => idx < 4)
-          .map(item => (
-            <CollectionItem
-              key={ item.id }
-              item={ item }
+      <h1
+        className="title"
+        onClick={ () => history.push(`${match.url}/${ckey}`) }
+      >{ ckey }</h1>
+      <div
+        className="preview"
+      >
+        {
+          products.map(([id, product]) => (
+            <ShopItem
+              key={ id }
+              item={ product }
             />
           ))
-      }
+        }
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
-export default CollectionPreview
+export default withRouter(CollectionPreview)

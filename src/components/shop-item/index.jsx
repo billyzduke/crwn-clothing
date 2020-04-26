@@ -1,13 +1,14 @@
-// <CollectionItem />
+// <ShopItem />
 import React from 'react'
 import { connect } from 'react-redux'
+
+import './index.scss'
 
 import FormButton from 'components/form-button'
 import { addItem } from 'stores/cart/actions'
 
-import './index.scss'
-
-const CollectionItem = ({ item, addItem }) => {
+const ShopItem = ({ item, addItem }) => {
+  console.log('item', item)
   const { name, price, imageUrl } = item
   return (
     <div
@@ -39,4 +40,4 @@ const mapDispatchToProps = dispatch => ({
   addItem: item => dispatch(addItem(item))
 })
 
-export default connect(null, mapDispatchToProps)(CollectionItem)
+export default connect(null, mapDispatchToProps)(ShopItem)

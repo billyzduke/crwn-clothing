@@ -3,10 +3,9 @@ import React from 'react'
 
 import './index.scss'
 
+import { auth, signInWithGoogle } from 'firebase-utils'
 import FormInput from 'components/form-input'
 import FormButton from 'components/form-button'
-
-import { auth, signInWithGoogle } from 'firebase-utils'
 
 class AcctLogin extends React.Component {
   constructor(props) {

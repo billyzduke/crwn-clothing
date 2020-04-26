@@ -3,11 +3,13 @@ import React from 'react'
 
 import './index.scss'
 
-import Directory from 'components/directory'
+import CatalogPreview from 'components/catalog-preview'
 
 const HomePage = () => (
-  <div className="homepage">
-    <Directory />
+  <div
+    className="homepage"
+  >
+    <CatalogPreview />
   </div>
 )
 
