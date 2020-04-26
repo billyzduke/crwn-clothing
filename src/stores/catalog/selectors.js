@@ -33,13 +33,13 @@ export const selectAllProductsByCollection = createSelector(
   catalog => catalog.collections
 )
 
-export const selectCollectionPreviews = createSelector(
+export const selectCollectionPreviews = numThumbs => createSelector(
   [selectAllProductsByCollection],
   collections => Object.entries(collections)
     .map(([ckey, { products }]) => ({
       ckey,
       products: Object.entries(products)
-        .filter((product, idx) => idx < 4)
+        .filter((product, idx) => idx < numThumbs)
         .map(([pid, productPreview]) => ([
           pid,
           productPreview
