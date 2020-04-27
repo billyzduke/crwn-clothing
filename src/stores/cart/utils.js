@@ -1,29 +1,38 @@
-export const addItemToCart = (cartItems, cartItemToAdd) => {
-  const existingCartItem = cartItems.find(cartItem => cartItem.id === cartItemToAdd.id)
-
-  if (existingCartItem) {
-    return cartItems.map(cartItem =>
-      cartItem.id === cartItemToAdd.id
-        ? { ...cartItem, quantity: cartItem.quantity + 1 }
-        : cartItem
-    )
+export const addItemToCart = (cartItems, pid) => {
+  let newCartItems = { [pid]: 1 }
+  for (const cartItem in cartItems) {
+    if (cartItems.hasOwnProperty(cartItem)) {
+      if (cartItem === pid) {
+        newCartItems[cartItem] += cartItems[cartItem]
+      } else {
+        newCartItems[cartItem] = cartItems[cartItem]
+      }
+    }
   }
-
-  return [...cartItems, { ...cartItemToAdd, quantity: 1 }]
+  return newCartItems
 }
 
-export const removeItemFromCart = (cartItems, cartItemToRemove) => {
-  const existingCartItem = cartItems.find(cartItem => cartItem.id === cartItemToRemove.id)
-
-  if (existingCartItem.quantity === 1) {
-    return cartItems.filter(cartItem =>
-      cartItem.id !== cartItemToRemove.id
-    )
+export const clearItemFromCart = (cartItems, pid) => {
+  let newCartItems = {}
+  for (const cartItem in cartItems) {
+    if (cartItems.hasOwnProperty(cartItem) && cartItem !== pid ) {
+      newCartItems[cartItem] = cartItems[cartItem]
+    }
   }
+  return newCartItems
+}
 
-  return cartItems.map(cartItem =>
-    cartItem.id === cartItemToRemove.id
-      ? { ...cartItem, quantity: cartItem.quantity - 1 }
-      : cartItem
-  )
+export const removeItemFromCart = (cartItems, pid) => {
+  let newCartItems = {}
+  for (const cartItem in cartItems) {
+    if (cartItems.hasOwnProperty(cartItem)) {
+      if (cartItem === pid) {
+        const newQ = cartItems[cartItem] - 1
+        if (newQ > 0) newCartItems[cartItem] = newQ
+      } else {
+        newCartItems[cartItem] = cartItems[cartItem]
+      }
+    }
+  }
+  return newCartItems
 }

@@ -7,8 +7,9 @@ import './index.scss'
 import FormButton from 'components/form-button'
 import { addItem } from 'stores/cart/actions'
 
-const ShopItem = ({ item, addItem }) => {
-  console.log('item', item)
+const ShopItem = ({ pid, item, addItem }) => {
+  // console.log('pid', pid)
+  // console.log('item', item)
   const { name, price, imageUrl } = item
   return (
     <div
@@ -30,7 +31,7 @@ const ShopItem = ({ item, addItem }) => {
       </div>
       <FormButton
         inverted
-        onClick={ () => addItem(item) }
+        onClick={ () => addItem(pid) }
       > Add to Cart </FormButton>
     </div>
   )

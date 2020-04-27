@@ -1,20 +1,24 @@
 import { CartActionTypes } from 'stores/cart/types'
 
-export const addItem = item => ({
+export const addItem = pid => ({
   type: CartActionTypes.ADD_ITEM,
-  payload: item
+  payload: pid
 })
 
-export const clearItem = item => ({
+export const clearItem = pid => ({
   type: CartActionTypes.CLEAR_ITEM,
-  payload: item
+  payload: pid
 })
 
-export const removeItem = item => ({
+export const removeItem = pid => ({
   type: CartActionTypes.REMOVE_ITEM,
-  payload: item
+  payload: pid
 })
 
-export const toggleCartVisibility = cart => ({
+export const toggleCartVisibility = () => ({
   type: CartActionTypes.TOGGLE_VISIBILITY
+})
+
+export const clearCart = () => ({
+  type: CartActionTypes.CLEAR_CART,
 })

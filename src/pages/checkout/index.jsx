@@ -1,81 +1,42 @@
 // <CheckoutPage />
 import React from 'react'
 import { connect } from 'react-redux'
-import { createStructuredSelector } from 'reselect'
 
 import './index.scss'
 
+import CheckoutHeader from 'components/checkout-header'
 import CheckoutItem from 'components/checkout-item'
-import { selectCartItems, selectCartTotal } from 'stores/cart/selectors'
+import { selectCartItems, selectCartPriceTotal } from 'stores/cart/selectors'
+import { selectProducts } from 'stores/catalog/selectors'
 
-const CheckoutPage = ({ cartItems, cartTotal }) => (
+const CheckoutPage = ({ cartItems, cartProducts, cartPriceTotal }) => (
   <div
     className="checkout-page"
   >
-    <div
-      className="checkout-header"
-    >
-      <div
-        className="header-block"
-      >
-        <span>Product</span>
-      </div>
-      <div
-        className="header-block"
-      >
-        <span>Description</span>
-      </div>
-      <div
-        className="header-block"
-      >
-        <span>Price</span>
-      </div>
-      <div
-        className="header-block"
-      >
-        <span>&#10005;</span>
-      </div>
-      <div
-        className="header-block"
-      >
-        <span>Quantity</span>
-      </div>
-      <div
-        className="header-block"
-      >
-        <span>=</span>
-      </div>
-      <div
-        className="header-block"
-      >
-        <span>Subtotal</span>
-      </div>
-      <div
-        className="header-block"
-      >
-        <span>Remove</span>
-      </div>
-    </div>
+    <CheckoutHeader />
     {
-      cartItems.map(cartItem =>
+      Object.entries(cartProducts).map(([pid, product]) => (
         <CheckoutItem
-          key={ cartItem.id }
-          cartItem={ cartItem }
+          key={ pid }
+          pid={ pid }
+          quantity={ cartItems[pid] }
+          item={ product }
         />
-      )
+      ))
     }
     <div
       className="cart-total"
     >
       <span>TOTAL:</span>
-      <span>${ cartTotal.toFixed(2) }</span>
+      <span>${ cartPriceTotal.toFixed(2) }</span>
     </div>
   </div>
 )
 
-const mapStateToProps = createStructuredSelector({
-  cartItems: selectCartItems,
-  cartTotal: selectCartTotal
+const mapStateToProps = state => ({
+  cartItems: selectCartItems(state),
+  cartPriceTotal: selectCartPriceTotal(selectProducts(Object.keys(state.cart.cartItems))(state))(state),
+  cartProducts: selectProducts(Object.keys(state.cart.cartItems))(state)
 })
 
 export default connect(mapStateToProps)(CheckoutPage)

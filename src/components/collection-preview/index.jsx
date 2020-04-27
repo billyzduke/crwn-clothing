@@ -23,6 +23,7 @@ const CollectionPreview = ({ ckey, products, history, match }) => {
           products.map(([id, product]) => (
             <ShopItem
               key={ id }
+              pid={ id }
               item={ product }
             />
           ))

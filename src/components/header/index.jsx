@@ -12,14 +12,16 @@ import CartDropdown from 'components/cart-dropdown'
 import { ReactComponent as Logo } from 'assets/crown.svg'
 import { selectCartVisible } from 'stores/cart/selectors'
 import { selectCurrentUser } from 'stores/user/selectors'
+import { clearCart } from 'stores/cart/actions'
 
-const Header = ({ currentUser, visible }) => (
+const Header = ({ currentUser, visible, clearCart }) => (
   <div
     className="header"
   >
     <Link
       className="logo-container"
       to="/"
+      onClick={ clearCart }
     >
       <Logo
         className="logo"
@@ -68,4 +70,11 @@ const mapStateToProps = createStructuredSelector({
   visible: selectCartVisible
 })
 
-export default connect(mapStateToProps)(Header)
+const mapDispatchToProps = dispatch => ({
+  clearCart: () => dispatch(clearCart())
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Header)

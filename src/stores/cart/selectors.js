@@ -7,12 +7,12 @@ export const selectCartItems = createSelector(
   cart => cart.cartItems
 )
 
-export const selectCartItemsCount = createSelector(
+export const selectCartQuantiTotal = createSelector(
   [selectCartItems],
   cartItems =>
-    cartItems.reduce(
-      (Q, cartItem) =>
-        Q + cartItem.quantity,
+    Object.keys(cartItems).reduce(
+      (Q, pid) =>
+        Q + parseFloat(cartItems[pid] || 0),
       0
     )
 )
@@ -22,12 +22,13 @@ export const selectCartVisible = createSelector(
   cart => cart.visible
 )
 
-export const selectCartTotal = createSelector(
+export const selectCartPriceTotal = cartProducts => createSelector(
   [selectCartItems],
   cartItems =>
-    cartItems.reduce(
-      (T, cartItem) =>
-        T + (cartItem.quantity * cartItem.price),
+    Object.entries(cartProducts).reduce(
+      (T, [pid, cartItem]) => {
+        return T + (cartItems[pid] * cartItem.price)
+      },
       0
     )
 )

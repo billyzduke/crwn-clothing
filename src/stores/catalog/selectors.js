@@ -10,15 +10,15 @@ export const selectCatalogCollections = createSelector(
   ({ collections }) => {
 
     let collectionDetails = {}
-    for (const collection in collections) {
-      if (collections.hasOwnProperty(collection)) {
-        for (const cprop in collections[collection]) {
-          if (!collectionDetails[collection]) collectionDetails[collection] = {
+    for (const ckey in collections) {
+      if (collections.hasOwnProperty(ckey)) {
+        for (const cprop in collections[ckey]) {
+          if (!collectionDetails[ckey]) collectionDetails[ckey] = {
             heroImgUrl: null,
             heroSize: null
           }
-          if (collectionDetails[collection].hasOwnProperty(cprop) && collections[collection].hasOwnProperty(cprop)) {
-            collectionDetails[collection][cprop] = collections[collection][cprop]
+          if (collectionDetails[ckey].hasOwnProperty(cprop) && collections[ckey].hasOwnProperty(cprop)) {
+            collectionDetails[ckey][cprop] = collections[ckey][cprop]
           }
         }
       }
@@ -45,6 +45,27 @@ export const selectCollectionPreviews = numThumbs => createSelector(
           productPreview
         ]))
     }))
+)
+
+export const selectProducts = pids => createSelector(
+  [selectAllProductsByCollection],
+  collections => {
+    let selectedProducts = {}
+    for (const ckey in collections) {
+      if (collections.hasOwnProperty(ckey)) {
+        let { products } = collections[ckey]
+        if (products) {
+          for (const pid in products) {
+            if (!pids || pids.includes(pid)) {
+              selectedProducts[pid] = products[pid]
+            }
+          }
+        }
+      }
+    }
+    console.log('selectedProducts', selectedProducts)
+    return selectedProducts
+  }
 )
 
 export const selectOnlyProductsInCollection = ckeyUrlParam => createSelector(

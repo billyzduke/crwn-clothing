@@ -23,6 +23,7 @@ const Collection = ({ collection: { ckey, products } }) => (
         Object.entries(products).map(([id, product]) => (
           <ShopItem
             key={ id }
+            pid={ id }
             item={ product }
           />
         ))
@@ -30,7 +31,6 @@ const Collection = ({ collection: { ckey, products } }) => (
     </div>
   </div>
 )
-
 
 const mapStateToProps = (state, ownProps) => ({
   collection: selectOnlyProductsInCollection(ownProps.match.params.ckey)(state)

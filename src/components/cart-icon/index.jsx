@@ -7,9 +7,9 @@ import './index.scss'
 
 import { ReactComponent as ShopBag } from 'assets/shopping-bag.svg'
 import { toggleCartVisibility } from 'stores/cart/actions'
-import { selectCartItemsCount } from 'stores/cart/selectors'
+import { selectCartQuantiTotal } from 'stores/cart/selectors'
 
-const CartIcon = ({ toggleCartVisibility, itemCount }) => (
+const CartIcon = ({ toggleCartVisibility, quantiTotal }) => (
   <div
     className="cart-icon"
     onClick={ toggleCartVisibility }
@@ -19,16 +19,16 @@ const CartIcon = ({ toggleCartVisibility, itemCount }) => (
     />
     <span
       className="item-count"
-    >{ itemCount }</span>
+    >{ quantiTotal }</span>
   </div>
 )
 
-const mapDispatchToProps = dispatch => ({
-  toggleCartVisibility: () => dispatch(toggleCartVisibility())
+const mapStateToProps = createStructuredSelector({
+  quantiTotal: selectCartQuantiTotal
 })
 
-const mapStateToProps = createStructuredSelector({
-  itemCount: selectCartItemsCount
+const mapDispatchToProps = dispatch => ({
+  toggleCartVisibility: () => dispatch(toggleCartVisibility())
 })
 
 export default connect(
