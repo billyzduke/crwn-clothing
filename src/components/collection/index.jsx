@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import './index.scss'
 
 import ShopItem from 'components/shop-item'
-import { selectOnlyProductsInCollection } from 'stores/catalog/selectors'
+import { selectProductsInCollection } from 'stores/catalog/selectors'
 
 const Collection = ({ collection: { ckey, products } }) => (
   <div
@@ -33,7 +33,7 @@ const Collection = ({ collection: { ckey, products } }) => (
 )
 
 const mapStateToProps = (state, ownProps) => ({
-  collection: selectOnlyProductsInCollection(ownProps.match.params.ckey)(state)
+  collection: selectProductsInCollection(ownProps.match.params.ckey)(state)
 })
 
 export default connect(mapStateToProps)(Collection)

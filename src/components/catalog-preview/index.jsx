@@ -7,7 +7,7 @@ import './index.scss'
 
 import CollectionHero from 'components/collection-hero'
 
-import { selectCatalogCollections } from 'stores/catalog/selectors'
+import { selectAllCollections } from 'stores/catalog/selectors'
 
 const CatalogPreview = ({ collections }) => (
   <div
@@ -25,7 +25,7 @@ const CatalogPreview = ({ collections }) => (
 )
 
 const mapStateToProps = createStructuredSelector({
-  collections: selectCatalogCollections
+  collections: selectAllCollections
 })
 
 export default connect(mapStateToProps)(CatalogPreview)

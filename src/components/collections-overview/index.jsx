@@ -6,7 +6,7 @@ import { createStructuredSelector } from 'reselect'
 import './index.scss'
 
 import CollectionPreview from 'components/collection-preview'
-import { selectCollectionPreviews } from 'stores/catalog/selectors'
+import { previewProductsByCollection } from 'stores/catalog/selectors'
 
 const CollectionsOverview = ({ collectionPreviews }) => {
   console.log('collectionPreviews', collectionPreviews)
@@ -28,7 +28,7 @@ const CollectionsOverview = ({ collectionPreviews }) => {
 }
 
 const mapStateToProps = createStructuredSelector({
-  collectionPreviews: selectCollectionPreviews(4)
+  collectionPreviews: previewProductsByCollection(4)
 })
 
 export default connect(mapStateToProps)(CollectionsOverview)
