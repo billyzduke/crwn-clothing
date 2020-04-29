@@ -6,6 +6,7 @@ import './index.scss'
 
 import CheckoutHeader from 'components/checkout-header'
 import CheckoutItem from 'components/checkout-item'
+import StripeCheckoutButton from 'components/stripe-button'
 import { selectCartItems, selectCartPriceTotal } from 'stores/cart/selectors'
 import { selectProducts } from 'stores/catalog/selectors'
 
@@ -30,6 +31,9 @@ const CheckoutPage = ({ cartItems, cartProducts, cartPriceTotal }) => (
       <span>TOTAL:</span>
       <span>${ cartPriceTotal.toFixed(2) }</span>
     </div>
+    <StripeCheckoutButton
+      price={ cartPriceTotal }
+    />
   </div>
 )
 
