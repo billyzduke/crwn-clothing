@@ -7,7 +7,7 @@
   margin: 50px auto 0;
 
   .cart-total {
-    width: 94%;
+    width: 100%;
     margin-top: 30px;
     align-self: flex-start;
     display: flex;
@@ -15,9 +15,32 @@
     span {
       font-size: 36px;
       display: inline-block;
+      &:first-child {
+        width: 50%;
+      }
+      &:nth-child(2) {
+        width: calc(46% - 49px);
+        text-align: right;
+        padding-right: 14px;
+      }
       &:last-child {
-        padding-right: 49px;
+        width: calc(4% + 49px);
+        position: relative;
+        button {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          span {
+            width: 100%;
+          }
+        }
       }
     }
+  }
+  .test-warning {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 24px;
+    color: red;
   }
 }
