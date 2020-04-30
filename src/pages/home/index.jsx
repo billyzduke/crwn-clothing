@@ -1,16 +1,17 @@
 // <HomePage />
 import React from 'react'
 
-import './index.scss'
+/* SASS/SCSS */
+// import './index.scss'
+/* styled-components */
+import { HomePageContainer } from './styled'
 
 import CatalogPreview from 'components/catalog-preview'
 
 const HomePage = () => (
-  <div
-    className="homepage"
-  >
+  <HomePageContainer>
     <CatalogPreview />
-  </div>
+  </HomePageContainer>
 )
 
 export default HomePage

@@ -1,15 +1,14 @@
 // <FormButton />
 import React from 'react'
 
-import './index.scss'
+import { FormButtonContainer } from './styled'
 
-const FormButton = ({ children, isGoogleSignIn, inverted, ...etcProps }) => (
-  <button
-    className={ `${inverted ? 'inverted' : ''} ${isGoogleSignIn ? 'google-sign-in' : ''} form-button` }
+const FormButton = ({ children, ...etcProps }) => (
+  <FormButtonContainer
     { ...etcProps }
   >
     { children }
-  </button>
+  </FormButtonContainer>
 )
 
 export default FormButton
