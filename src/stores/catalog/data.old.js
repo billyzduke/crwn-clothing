@@ -9,11 +9,11 @@ const SHOP_DATA = {
     jackets: {
       heroImgUrl: 'https://i.ibb.co/px2tCc3/jackets.png'
     },
-    'womens': {
+    womens: {
       heroImgUrl: 'https://i.ibb.co/GCCdy8t/womens.png',
       heroSize: 'large'
     },
-    'mens': {
+    mens: {
       heroImgUrl: 'https://i.ibb.co/R70vBrQ/men.png',
       heroSize: 'large'
     }

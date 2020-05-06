@@ -5,35 +5,37 @@ import { connect } from 'react-redux'
 import './index.scss'
 
 import ShopItem from 'components/shop-item'
-import { selectProductsInCollection } from 'stores/catalog/selectors'
+import { selectProductTypeFromName, selectProductsOfType } from 'stores/catalog/selectors'
 
-const Collection = ({ collection: { ckey, products } }) => (
+const Collection = ({ collection }) => (
   <div
     className="collection"
   >
     <h2
       className="collection-title"
     >
-      { ckey }
+      { collection.product_type ? collection.product_type.name : `` }
     </h2>
     <div
       className="collection-items"
     >
       {
-        Object.entries(products).map(([id, product]) => (
-          <ShopItem
-            key={ id }
-            pid={ id }
-            item={ product }
-          />
-        ))
+        collection.products ?
+          Object.entries(collection.products).map(([product_id, product]) => (
+            <ShopItem
+              key={ product_id }
+              pid={ product_id }
+              item={ product }
+            />
+          ))
+          : ''
       }
     </div>
   </div>
 )
 
 const mapStateToProps = (state, ownProps) => ({
-  collection: selectProductsInCollection(ownProps.match.params.ckey)(state)
+  collection: selectProductsOfType(selectProductTypeFromName(ownProps.match.params.pt_name)(state))(state)
 })
 
 export default connect(mapStateToProps)(Collection)

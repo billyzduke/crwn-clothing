@@ -1,0 +1,4 @@
+export const CatalogActionTypes = {
+  UPDATE_PRODUCT_TYPES: 'UPDATE_PRODUCT_TYPES',
+  UPDATE_PRODUCTS: 'UPDATE_PRODUCTS',
+}

@@ -32,8 +32,24 @@ export const createUserProfileDoc = async (userAuth, ...etcData) => {
       console.log('error creating user', error.message)
     }
   }
-
   return userRef
+}
+
+export const mapSnapshot = snapShot => {
+  // console.log(snapShot)
+  const snapShotMap = snapShot.docs.map(doc => {
+    const data = doc.data()
+    return {
+      id: doc.id,
+      ...data
+    }
+  })
+  // console.log(productTypesMap)
+  return snapShotMap.reduce((accumulator, data) => {
+    accumulator[data.id] = data
+    delete accumulator[data.id].id
+    return accumulator
+  }, {})
 }
 
 firebase.initializeApp(firebaseConfig)

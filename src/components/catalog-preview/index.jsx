@@ -7,16 +7,15 @@ import './index.scss'
 
 import CollectionHero from 'components/collection-hero'
 
-import { selectAllCollections } from 'stores/catalog/selectors'
+import { selectAllProductTypes } from 'stores/catalog/selectors'
 
-const CatalogPreview = ({ collections }) => (
+const CatalogPreview = ({ product_types }) => (
   <div
     className='catalog-preview'
   > {
-      Object.entries(collections).map(([ckey, { ...details }]) => (
+      Object.entries(product_types).map(([pt_id, { ...details }]) => (
         <CollectionHero
-          key={ ckey }
-          ckey={ ckey }
+          key={ pt_id }
           { ...details }
         />
       ))
@@ -25,7 +24,7 @@ const CatalogPreview = ({ collections }) => (
 )
 
 const mapStateToProps = createStructuredSelector({
-  collections: selectAllCollections
+  product_types: selectAllProductTypes
 })
 
 export default connect(mapStateToProps)(CatalogPreview)

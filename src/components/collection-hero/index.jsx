@@ -4,10 +4,10 @@ import { withRouter } from 'react-router-dom'
 
 import './index.scss'
 
-const CollectionHero = ({ ckey, heroImgUrl, heroSize, history, match }) => (
+const CollectionHero = ({ name, heroImgUrl, heroSize, history, match }) => (
   <div
     className={ heroSize ? `${heroSize} menu-item` : `menu-item` }
-    onClick={ () => history.push(`${match.url}shop/${ckey}`) }
+    onClick={ () => history.push(`${match.url}shop/${encodeURI(name)}`) }
   >
     <div
       className="background-image"
@@ -18,7 +18,7 @@ const CollectionHero = ({ ckey, heroImgUrl, heroSize, history, match }) => (
     >
       <h1
         className="title"
-      >{ ckey }</h1>
+      >{ name }</h1>
       <span
         className="subtitle"
       >Shop Now</span>
