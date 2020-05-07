@@ -8,7 +8,7 @@ import './index.scss'
 import FormButton from 'components/form-button'
 import CartItem from 'components/cart-item'
 import { selectCartItems } from 'stores/cart/selectors'
-import { selectProducts } from 'stores/catalog/selectors'
+import { selectProductsFromIds } from 'stores/catalog/selectors'
 import { toggleCartVisibility } from 'stores/cart/actions'
 
 const CartDropdown = ({ cartItems, cartProducts, history, dispatch }) => {
@@ -52,7 +52,7 @@ const CartDropdown = ({ cartItems, cartProducts, history, dispatch }) => {
 
 const mapStateToProps = state => ({
   cartItems: selectCartItems(state),
-  cartProducts: selectProducts(Object.keys(state.cart.cartItems))(state)
+  cartProducts: selectProductsFromIds(Object.keys(state.cart.cartItems))(state)
 })
 
 export default withRouter(connect(mapStateToProps)(CartDropdown))

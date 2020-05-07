@@ -1,95 +1,84 @@
-import { createSelector } from 'reselect'
+import { memoize, memoizeAs } from 'reselectie'
 
 const selectCatalog = state => state.catalog
 
-export const selectAllProductTypes = createSelector(
-  [selectCatalog],
+export const selectAllProducts = memoize(
+  selectCatalog,
+  catalog => catalog.products ? catalog.products : null
+)
+
+export const selectAllProductKeys = memoize(
+  selectAllProducts,
+  products => products ? products.keys() : []
+)
+
+export const selectMostProductKeys = memoizeAs(
+  (state, product_ids) => selectAllProductKeys(state),
+  (all_product_ids, product_ids) => all_product_ids.length > product_ids.length ? all_product_ids : product_ids
+)
+
+export const selectProductsFromIds = memoizeAs(
+  (state, product_ids) => selectAllProducts(state),
+  (state, product_ids) => selectMostProductKeys(product_ids)(state),
+  (products, product_ids) => product_ids.reduce((accumulator, product_id) => {
+    accumulator[product_id] = products[product_id]
+    return accumulator
+  }, {})
+)
+
+export const selectAllProductTypesByKey = memoize(
+  selectCatalog,
   catalog => catalog.product_types ? catalog.product_types : {}
 )
 
-export const selectAllProducts = createSelector(
-  [selectCatalog],
-  catalog => catalog.products ? catalog.products : {}
+export const selectAllProductTypesByName = memoize(
+  selectAllProductTypesByKey,
+  product_types => product_types ? Object.entries(product_types).reduce((accumulator, [product_id, product_type]) => {
+    accumulator[product_type.name] = product_type
+    delete accumulator[product_type.name].name
+    return accumulator
+  }, {}) : null
 )
 
-export const selectProducts = product_ids => createSelector(
-  [selectAllProducts],
-  products => {
-    let selectedProducts = {}
-    for (const product_id in products) {
-      if (products.hasOwnProperty(product_id) && (!product_ids || product_ids.includes(product_id))) {
-        selectedProducts[product_id] = products[product_id]
-      }
-    }
-    // console.log('selectedProducts', selectedProducts)
-    return selectedProducts
-  }
+export const selectProductTypeFromOwnName = memoizeAs(
+  (state, product_type_name) => selectAllProductTypesByName(state),
+  (product_types, product_type_name) => product_types ? product_types[product_type_name] : null
 )
 
-export const selectProductTypeFromName = product_type_name => createSelector(
-  [selectAllProductTypes],
-  product_types => {
-    let product_type = {}
-    // console.log('product_types', product_types)
-    // console.log('product_type_name', product_type_name)
-    for (const product_type_id in product_types) {
-      // console.log(`product_types.hasOwnProperty('${product_type_id}')`, product_types.hasOwnProperty(product_type_id))
-      // console.log(`product_types['${product_type_id}'].name === '${product_type_name}'`, product_types[product_type_id].name === product_type_name)
-      if (product_types.hasOwnProperty(product_type_id) && product_types[product_type_id].name === product_type_name) {
-        product_type = {
-          id: product_type_id,
-          ...product_types[product_type_id]
-        }
-      }
-    }
-    // console.log('product_type', product_type)
-    return product_type
-  }
+export const selectProductsOfTypeFromTypeName = memoizeAs(
+  (state, product_type_name) => selectProductTypeFromOwnName(product_type_name)(state),
+  (state, product_type_name) => selectAllProducts(state),
+  (product_type, products, product_type_name) => product_type && products ? {
+    product_type: {
+      name: product_type_name,
+      ...product_type
+    },
+    products: product_type.products.reduce((accumulator, product_id) => {
+      accumulator[product_id] = products[product_id]
+      return accumulator
+    }, {})
+  } : null
 )
 
-export const selectProductsOfType = product_type => createSelector(
-  [
-    selectAllProducts
-  ],
-  (product_type, products) => {
-    console.log('product_type', product_type)
-    const productsOfType = product_type.products ? {
-      product_type: product_type,
-      products: product_type.products.reduce((accumulator, product_id) => {
-        accumulator[product_id] = products[product_id]
-        return accumulator
-      }, {})
-    } : {
-      product_type: {},
-      products: {}
-    }
-    console.log('productsOfType', productsOfType)
-    return productsOfType
-  }
-)
-
-export const previewProductsByType = howMany => createSelector(
-  [
-    selectAllProductTypes,
-    selectAllProducts
-  ],
-  (product_types, products) => Object.entries(product_types)
-    .map(([product_type_id, product_type]) => ({
-      id: product_type_id,
-      title: product_type.name,
-      products: Object.entries(products)
-        .filter(function([product_id, product]) {
-          if (product_type.products.includes(product_id) && (!howMany || this.rayLen < howMany)) {
-            this.rayLen++
-            return true
-          }
-          return false
-        }, { rayLen: 0 })
-        .map(([product_id, product_view]) => ([
-          product_id,
-          product_view
-        ]))
+export const previewAllProductsByType = memoizeAs(
+  (state, how_many) => selectAllProductTypesByName(state),
+  (state, how_many) => selectAllProducts(state),
+  (product_types, all_products, how_many) => product_types && all_products ? Object.entries(product_types)
+    .map(([product_type_name, product_type]) => ({
+      title: product_type_name,
+      products: product_type.products
+        .slice(0, how_many)
+        .reduce((accumulator, product_id) => {
+          accumulator.push(
+            {
+              id: product_id,
+              ...all_products[product_id]
+            }
+          )
+          return accumulator
+        }, [])
     }))
+    : null
 )
 
 

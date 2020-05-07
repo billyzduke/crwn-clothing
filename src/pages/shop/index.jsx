@@ -2,12 +2,16 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
 
+import WithSpinner from 'components/with-spinner'
 import CollectionsOverview from 'components/collections-overview'
 import Collection from 'components/collection'
 
+const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview)
+const CollectionWithSpinner = WithSpinner(Collection)
+
 class ShopPage extends React.Component {
   render() {
-    const { match } = this.props
+    const { match, isLoading } = this.props
     return (
       <div
         className="shop-page"
@@ -15,11 +19,17 @@ class ShopPage extends React.Component {
         <Route
           exact
           path={ `${match.path}` }
-          component={ CollectionsOverview }
+          render={ props => <CollectionsOverviewWithSpinner
+            isLoading={ isLoading }
+            { ...props }
+          /> }
         />
         <Route
           path={ `${match.path}/:pt_name` }
-          component={ Collection }
+          render={ props => <CollectionWithSpinner
+            isLoading={ isLoading }
+            { ...props }
+          /> }
         />
       </div>
     )

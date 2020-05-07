@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.1.2",
     "firebase": "^7.14.1",
     "node-sass": "^4.13.1",
+    "re-reselect": "^3.4.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
@@ -17,7 +18,9 @@
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
-    "reselect": "^4.0.0"
+    "reselect": "^4.0.0",
+    "reselectie": "^1.0.2",
+    "styled-components": "^5.1.0"
   },
   "scripts": {
     "start": "NODE_PATH=./src;react-scripts start",

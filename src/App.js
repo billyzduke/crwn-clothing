@@ -16,6 +16,12 @@ import { selectCurrentUser } from 'stores/user/selectors'
 import { updateProductTypes, updateProducts } from 'stores/catalog/actions'
 
 class App extends React.Component {
+  state = {
+    loading: {
+      product_types: true,
+      products: true
+    }
+  }
   unsubscribeFromAuth = null
   unsubscribeFromCatalog = null
   unsubscribeFromProducts = null
@@ -26,11 +32,13 @@ class App extends React.Component {
     this.unsubscribeFromProductTypes = productTypesRef.onSnapshot(async snapShot => {
       const productTypesObj = mapSnapshot(snapShot)
       updateProductTypes(productTypesObj)
+      this.setState({ loading: { product_types: false } })
     })
-    const productsRef = firestore.collection('products')
+    const productsRef = firestore.collection('products').orderBy('name')
     this.unsubscribeFromProducts = productsRef.onSnapshot(async snapShot => {
       const productsObj = mapSnapshot(snapShot)
       updateProducts(productsObj)
+      this.setState({ loading: { products: false } })
     })
 
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
@@ -55,6 +63,7 @@ class App extends React.Component {
   }
 
   render() {
+    const { loading: { product_types, products } } = this.state
     return (
       <div>
         <Header />
@@ -66,7 +75,10 @@ class App extends React.Component {
           />
           <Route
             path="/shop"
-            component={ ShopPage }
+            render={ props => <ShopPage
+              isLoading={ product_types || products }
+              { ...props }
+            /> }
           />
           <Route
             path="/checkout"

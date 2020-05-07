@@ -6,27 +6,26 @@ import './index.scss'
 
 import ShopItem from 'components/shop-item'
 
-const CollectionPreview = ({ ckey, products, history, match }) => {
-  console.log('products', products)
+const CollectionPreview = ({ title, products, history, match }) => {
+  // console.log('products', products)
   return (
     <div
       className="collection-preview"
     >
       <h1
         className="title"
-        onClick={ () => history.push(`${match.url}/${ckey}`) }
-      >{ ckey }</h1>
+        onClick={ () => history.push(`${match.url}/${encodeURI(title)}`) }
+      >{ title }</h1>
       <div
         className="preview"
       >
-        {
-          products.map(([id, product]) => (
-            <ShopItem
-              key={ id }
-              pid={ id }
-              item={ product }
-            />
-          ))
+        { products ? products.map(product => (
+          <ShopItem
+            key={ product.id }
+            pid={ product.id }
+            item={ product }
+          />
+        )) : ''
         }
       </div>
     </div>

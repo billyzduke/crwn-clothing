@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import './index.scss'
 
 import ShopItem from 'components/shop-item'
-import { selectProductTypeFromName, selectProductsOfType } from 'stores/catalog/selectors'
+import { selectProductsOfTypeFromTypeName } from 'stores/catalog/selectors'
 
 const Collection = ({ collection }) => (
   <div
@@ -14,13 +14,13 @@ const Collection = ({ collection }) => (
     <h2
       className="collection-title"
     >
-      { collection.product_type ? collection.product_type.name : `` }
+      { collection ? collection.product_type.name : `` }
     </h2>
     <div
       className="collection-items"
     >
       {
-        collection.products ?
+        collection ?
           Object.entries(collection.products).map(([product_id, product]) => (
             <ShopItem
               key={ product_id }
@@ -35,7 +35,7 @@ const Collection = ({ collection }) => (
 )
 
 const mapStateToProps = (state, ownProps) => ({
-  collection: selectProductsOfType(selectProductTypeFromName(ownProps.match.params.pt_name)(state))(state)
+  collection: selectProductsOfTypeFromTypeName(ownProps.match.params.pt_name)(state)
 })
 
 export default connect(mapStateToProps)(Collection)
