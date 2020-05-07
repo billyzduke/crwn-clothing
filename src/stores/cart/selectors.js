@@ -1,14 +1,14 @@
-import { createSelector } from 'reselect'
+import { memoize, memoizeAs } from 'reselectie'
 
 const selectCart = state => state.cart
 
-export const selectCartItems = createSelector(
-  [selectCart],
+export const selectCartItems = memoize(
+  selectCart,
   cart => cart.cartItems
 )
 
-export const selectCartQuantiTotal = createSelector(
-  [selectCartItems],
+export const selectCartQuantiTotal = memoize(
+  selectCartItems,
   cartItems =>
     Object.keys(cartItems).reduce(
       (Q, pid) =>
@@ -17,18 +17,17 @@ export const selectCartQuantiTotal = createSelector(
     )
 )
 
-export const selectCartVisible = createSelector(
-  [selectCart],
+export const selectCartVisible = memoize(
+  selectCart,
   cart => cart.visible
 )
 
-export const selectCartPriceTotal = cartProducts => createSelector(
-  [selectCartItems],
-  cartItems =>
-    Object.entries(cartProducts).reduce(
-      (T, [pid, cartItem]) => {
-        return T + (cartItems[pid] * cartItem.price)
-      },
-      0
-    )
+export const selectCartPriceTotal = memoizeAs(
+  (state, cartProducts) => selectCartItems(state),
+  (cartItems, cartProducts) => cartProducts ? Object.entries(cartProducts).reduce(
+    (T, [pid, cartItem]) => {
+      return T + (cartItems[pid] * cartItem.price)
+    },
+    0
+  ) : 0
 )

@@ -16,14 +16,14 @@ const CheckoutPage = ({ cartItems, cartProducts, cartPriceTotal }) => (
   >
     <CheckoutHeader />
     {
-      Object.entries(cartProducts).map(([pid, product]) => (
+      cartProducts ? Object.entries(cartProducts).map(([pid, product]) => (
         <CheckoutItem
           key={ pid }
           pid={ pid }
           quantity={ cartItems[pid] }
           item={ product }
         />
-      ))
+      )) : ''
     }
     <div
       className="cart-total"
@@ -31,9 +31,12 @@ const CheckoutPage = ({ cartItems, cartProducts, cartPriceTotal }) => (
       <span>TOTAL:</span>
       <span>${ cartPriceTotal.toFixed(2) }</span>
       <span>
-        <StripeCheckoutButton
-          price={ cartPriceTotal }
-        />
+        { cartPriceTotal ?
+          <StripeCheckoutButton
+            price={ cartPriceTotal }
+          />
+          : ''
+        }
       </span>
     </div>
     <div

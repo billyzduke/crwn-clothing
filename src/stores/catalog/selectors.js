@@ -9,21 +9,15 @@ export const selectAllProducts = memoize(
 
 export const selectAllProductKeys = memoize(
   selectAllProducts,
-  products => products ? products.keys() : []
-)
-
-export const selectMostProductKeys = memoizeAs(
-  (state, product_ids) => selectAllProductKeys(state),
-  (all_product_ids, product_ids) => all_product_ids.length > product_ids.length ? all_product_ids : product_ids
+  products => products ? Object.keys(products) : []
 )
 
 export const selectProductsFromIds = memoizeAs(
   (state, product_ids) => selectAllProducts(state),
-  (state, product_ids) => selectMostProductKeys(product_ids)(state),
-  (products, product_ids) => product_ids.reduce((accumulator, product_id) => {
+  (products, product_ids) => products && product_ids ? product_ids.reduce((accumulator, product_id) => {
     accumulator[product_id] = products[product_id]
     return accumulator
-  }, {})
+  }, {}) : null
 )
 
 export const selectAllProductTypesByKey = memoize(

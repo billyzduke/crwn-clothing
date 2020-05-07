@@ -12,20 +12,19 @@ import { selectProductsFromIds } from 'stores/catalog/selectors'
 import { toggleCartVisibility } from 'stores/cart/actions'
 
 const CartDropdown = ({ cartItems, cartProducts, history, dispatch }) => {
-  console.log('cartItems', cartItems)
-  console.log('cartProducts', cartProducts)
-  const cartProductsEntries = Object.entries(cartProducts)
+  // console.log('cartItems', cartItems)
+  // console.log('cartProducts', cartProducts)
   return (
     <div
       className="cart-dropdown"
     >
       {
-        cartProductsEntries.length ?
+        cartProducts ?
           <>
             <div
               className="cart-items"
             >{
-                cartProductsEntries.map(([pid, product]) => (
+                Object.entries(cartProducts).map(([pid, product]) => (
                   <CartItem
                     key={ pid }
                     quantity={ cartItems[pid] }
