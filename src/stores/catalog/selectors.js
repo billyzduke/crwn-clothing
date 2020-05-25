@@ -37,7 +37,7 @@ export const selectAllProductTypesByName = memoize(
   selectAllProductTypesByKey,
   product_types => product_types ? Object.entries(product_types).reduce((accumulator, [product_id, product_type]) => {
     accumulator[product_type.name] = product_type
-    delete accumulator[product_type.name].name
+    // delete accumulator[product_type.name].name
     return accumulator
   }, {}) : null
 )
