@@ -2,9 +2,17 @@ import { memoize, memoizeAs } from 'reselectie'
 
 const selectCatalog = state => state.catalog
 
+export const selectCatalogHasData = memoize(
+  selectCatalog,
+  catalog => Object.entries(catalog.data).reduce((accumulator, [collectionName, collectionData]) => {
+    accumulator = Boolean(accumulator && collectionData)
+    return accumulator
+  }, true)
+)
+
 export const selectAllProducts = memoize(
   selectCatalog,
-  catalog => catalog.products ? catalog.products : null
+  catalog => catalog.data.products ? catalog.data.products : null
 )
 
 export const selectAllProductKeys = memoize(
@@ -22,7 +30,7 @@ export const selectProductsFromIds = memoizeAs(
 
 export const selectAllProductTypesByKey = memoize(
   selectCatalog,
-  catalog => catalog.product_types ? catalog.product_types : {}
+  catalog => catalog.data.product_types ? catalog.data.product_types : {}
 )
 
 export const selectAllProductTypesByName = memoize(

@@ -10,36 +10,18 @@ import HomePage from 'pages/home'
 import ShopPage from 'pages/shop'
 import AuthPage from 'pages/auth'
 import CheckoutPage from 'pages/checkout'
-import { auth, createUserProfileDoc, firestore, mapSnapshot } from 'firebase-utils'
+import { auth, createUserProfileDoc } from 'firebase-utils'
 import { setCurrentUser } from 'stores/user/actions'
 import { selectCurrentUser } from 'stores/user/selectors'
-import { updateProductTypes, updateProducts } from 'stores/catalog/actions'
+import { fetchCatalogStartAsync } from 'stores/catalog/actions'
+import { selectCatalogHasData } from 'stores/catalog/selectors'
 
 class App extends React.Component {
-  state = {
-    loading: {
-      product_types: true,
-      products: true
-    }
-  }
   unsubscribeFromAuth = null
-  unsubscribeFromCatalog = null
-  unsubscribeFromProducts = null
 
   componentDidMount() {
-    const { setCurrentUser, updateProductTypes, updateProducts } = this.props
-    const productTypesRef = firestore.collection('product_types').orderBy('heroSize').orderBy('name')
-    this.unsubscribeFromProductTypes = productTypesRef.onSnapshot(async snapShot => {
-      const productTypesObj = mapSnapshot(snapShot)
-      updateProductTypes(productTypesObj)
-      this.setState({ loading: { product_types: false } })
-    })
-    const productsRef = firestore.collection('products').orderBy('name')
-    this.unsubscribeFromProducts = productsRef.onSnapshot(async snapShot => {
-      const productsObj = mapSnapshot(snapShot)
-      updateProducts(productsObj)
-      this.setState({ loading: { products: false } })
-    })
+    const { setCurrentUser, fetchCatalogStartAsync } = this.props
+    fetchCatalogStartAsync()
 
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
@@ -58,12 +40,10 @@ class App extends React.Component {
 
   componentWillUnmount() {
     this.unsubscribeFromAuth()
-    this.unsubscribeFromProducts()
-    this.unsubscribeFromProductTypes()
   }
 
   render() {
-    const { loading: { product_types, products } } = this.state
+    const { catalogHasData } = this.props
     return (
       <div>
         <Header />
@@ -76,7 +56,7 @@ class App extends React.Component {
           <Route
             path="/shop"
             render={ props => <ShopPage
-              isLoading={ product_types || products }
+              isLoading={ !catalogHasData }
               { ...props }
             /> }
           />
@@ -105,13 +85,13 @@ class App extends React.Component {
 }
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser
+  currentUser: selectCurrentUser,
+  catalogHasData: selectCatalogHasData
 })
 
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user)),
-  updateProductTypes: productTypesObj => dispatch(updateProductTypes(productTypesObj)),
-  updateProducts: productsObj => dispatch(updateProducts(productsObj))
+  fetchCatalogStartAsync: () => dispatch(fetchCatalogStartAsync())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
