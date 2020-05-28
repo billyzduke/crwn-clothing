@@ -1,4 +1,5 @@
 import { CatalogActionTypes } from 'stores/catalog/types'
+import { clearCatalogData } from 'stores/catalog/utils'
 
 const INITIAL_STATE = {
   data: {
@@ -13,10 +14,7 @@ const catalogReducer = (state = INITIAL_STATE, action) => {
   case CatalogActionTypes.FETCH_CATALOG_START:
     return {
       ...state,
-      data: Object.keys(state.data).reduce((accumulator, collectionName) => {
-        accumulator[collectionName] = null
-        return accumulator
-      }, {})
+      data: clearCatalogData(state.data)
     }
   case CatalogActionTypes.FETCH_CATALOG_FAILURE:
     return {
