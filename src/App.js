@@ -8,14 +8,14 @@ import CatalogOverviewContainer from 'components/catalog-overview/container'
 import { auth, createUserProfileDoc } from 'firebase-utils'
 import { setCurrentUser } from 'stores/user/actions'
 import { selectCurrentUser } from 'stores/user/selectors'
-import { fetchCatalogStartAsync } from 'stores/catalog/actions'
+import { fetchCatalogStart } from 'stores/catalog/actions'
 
 class App extends React.Component {
   unsubscribeFromAuth = null
 
   componentDidMount() {
-    const { setCurrentUser, fetchCatalogStartAsync } = this.props
-    fetchCatalogStartAsync()
+    const { setCurrentUser, fetchCatalogStart } = this.props
+    fetchCatalogStart()
 
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
@@ -51,7 +51,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user)),
-  fetchCatalogStartAsync: () => dispatch(fetchCatalogStartAsync())
+  fetchCatalogStart: () => dispatch(fetchCatalogStart())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
