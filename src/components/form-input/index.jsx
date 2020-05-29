@@ -5,7 +5,7 @@ import './index.scss'
 
 const FormInput = ({ handleChange, label, ...etcProps }) => (
   <div
-    className="group"
+    className="form-input-group"
   >
     <input
       className="form-input"

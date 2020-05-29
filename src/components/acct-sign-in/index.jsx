@@ -1,14 +1,14 @@
-// <AcctLogin />
+// <AcctSignIn />
 import React from 'react'
 import { connect } from 'react-redux'
 
 import './index.scss'
 
-import { loginGoogleStart, loginEmailStart } from 'stores/user/actions'
+import { signInGoogleStart, signInEmailStart } from 'stores/user/actions'
 import FormInput from 'components/form-input'
 import FormButton from 'components/form-button'
 
-class AcctLogin extends React.Component {
+class AcctSignIn extends React.Component {
   constructor(props) {
     super(props)
 
@@ -27,21 +27,21 @@ class AcctLogin extends React.Component {
 
   handleSubmit = async e => {
     e.preventDefault()
-    const { loginEmailStart } = this.props
+    const { signInEmailStart } = this.props
     const { email, password } = this.state
-    loginEmailStart(email, password)
+    signInEmailStart(email, password)
   }
 
   render() {
-    const { loginGoogleStart } = this.props
+    const { signInGoogleStart } = this.props
     return (
       <div
-        className='login'
+        className='sign-in'
       >
         <h2>I already have an account</h2>
         <span>Sign in with your email and password</span>
         <form
-          className="login-form"
+          className="sign-in-form"
           onSubmit={ this.handleSubmit }
         >
           <FormInput
@@ -70,7 +70,7 @@ class AcctLogin extends React.Component {
             </FormButton>
             <FormButton
               type="button"
-              onClick={ loginGoogleStart }
+              onClick={ signInGoogleStart }
               isGoogleSignIn
             >
               Sign In with Google
@@ -83,8 +83,8 @@ class AcctLogin extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  loginEmailStart: (email, password) => dispatch(loginEmailStart({ email, password })),
-  loginGoogleStart: () => dispatch(loginGoogleStart())
+  signInEmailStart: (email, password) => dispatch(signInEmailStart({ email, password })),
+  signInGoogleStart: () => dispatch(signInGoogleStart())
 })
 
-export default connect(null, mapDispatchToProps)(AcctLogin)
+export default connect(null, mapDispatchToProps)(AcctSignIn)

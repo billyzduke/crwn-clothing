@@ -1,13 +1,15 @@
 // <AcctSignUp />
 import React from 'react'
+import { connect } from 'react-redux'
 
 import './index.scss'
 
-import { auth, createUserProfileDoc } from 'firebase-utils'
+// import { auth, createUserProfileDoc } from 'firebase-utils'
+import { signUpStart } from 'stores/user/actions'
 import FormInput from 'components/form-input'
 import FormButton from 'components/form-button'
 
-class AcctSignUp extends React.Component {
+class AcctSignup extends React.Component {
   constructor(props) {
     super(props)
 
@@ -28,32 +30,13 @@ class AcctSignUp extends React.Component {
 
   handleSubmit = async e => {
     e.preventDefault()
+    const { signUpStart } = this.props
     const { displayName, email, password, passwordConfirm } = this.state
-
     if (password !== passwordConfirm) {
       alert("passwords don't match")
       return
     }
-
-    try {
-      const { user } = await auth.createUserWithEmailAndPassword(
-        email,
-        password
-      )
-
-      await createUserProfileDoc(user, { displayName })
-
-      this.setState({
-        displayName: '',
-        email: '',
-        password: '',
-        passwordConfirm: ''
-      })
-
-    } catch(error) {
-      console.log(error)
-    }
-
+    signUpStart({ email, password, displayName })
   }
 
   render() {
@@ -113,4 +96,8 @@ class AcctSignUp extends React.Component {
   }
 }
 
-export default AcctSignUp
+const mapDispatchToProps = dispatch => ({
+  signUpStart: newUserCreds => dispatch(signUpStart(newUserCreds))
+})
+
+export default connect(null, mapDispatchToProps)(AcctSignup)

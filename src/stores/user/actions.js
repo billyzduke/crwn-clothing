@@ -1,21 +1,21 @@
 import UserActionTypes from 'stores/user/types'
 
-export const loginEmailStart = emailAndPassword => ({
-  type: UserActionTypes.LOGIN_EMAIL_START,
+export const signInEmailStart = emailAndPassword => ({
+  type: UserActionTypes.SIGN_IN_EMAIL_START,
   payload: emailAndPassword
 })
 
-export const loginGoogleStart = () => ({
-  type: UserActionTypes.LOGIN_GOOGLE_START
+export const signInGoogleStart = () => ({
+  type: UserActionTypes.SIGN_IN_GOOGLE_START
 })
 
-export const loginFail = error => ({
-  type: UserActionTypes.LOGIN_FAIL,
+export const signInFail = error => ({
+  type: UserActionTypes.SIGN_IN_FAIL,
   payload: error
 })
 
-export const loginSucceed = user => ({
-  type: UserActionTypes.LOGIN_SUCCEED,
+export const signInSucceed = user => ({
+  type: UserActionTypes.SIGN_IN_SUCCEED,
   payload: user
 })
 
@@ -34,4 +34,19 @@ export const signOutFail = error => ({
 
 export const signOutSucceed = () => ({
   type: UserActionTypes.SIGN_OUT_SUCCEED
+})
+
+export const signUpStart = newUser => ({
+  type: UserActionTypes.SIGN_UP_START,
+  payload: newUser
+})
+
+export const signUpFail = error => ({
+  type: UserActionTypes.SIGN_UP_FAIL,
+  payload: error
+})
+
+export const signUpSucceed = ({ user, etcData }) => ({
+  type: UserActionTypes.SIGN_UP_SUCCEED,
+  payload: { user, etcData }
 })
