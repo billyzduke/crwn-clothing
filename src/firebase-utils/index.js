@@ -44,7 +44,7 @@ export const mapSnapshot = snapShot => {
       ...data
     }
   })
-  // console.log(productTypesMap)
+  // console.log(snapShotMap)
   return snapShotMap.reduce((accumulator, data) => {
     accumulator[data.id] = data
     delete accumulator[data.id].id
@@ -55,6 +55,15 @@ export const mapSnapshot = snapShot => {
 firebase.initializeApp(firebaseConfig)
 
 export const auth = firebase.auth()
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged(userAuth => {
+      unsubscribe()
+      resolve(userAuth)
+    }, reject)
+  })
+}
+
 export const firestore = firebase.firestore()
 
 // firestore.collections('users').doc('[userId]').collection('cartItems').doc('[itemId]')

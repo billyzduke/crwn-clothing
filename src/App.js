@@ -6,13 +6,15 @@ import 'App.scss'
 
 import CatalogOverviewContainer from 'components/catalog-overview/container'
 import { selectCurrentUser } from 'stores/user/selectors'
+import { checkUserSession } from 'stores/user/actions'
 import { fetchCatalogStart } from 'stores/catalog/actions'
 
 class App extends React.Component {
   unsubscribeFromAuth = null
 
   componentDidMount() {
-    const { fetchCatalogStart } = this.props
+    const { checkUserSession, fetchCatalogStart } = this.props
+    checkUserSession()
     fetchCatalogStart()
   }
 
@@ -34,6 +36,7 @@ const mapStateToProps = createStructuredSelector({
 })
 
 const mapDispatchToProps = dispatch => ({
+  checkUserSession: () => dispatch(checkUserSession()),
   fetchCatalogStart: () => dispatch(fetchCatalogStart())
 })
 

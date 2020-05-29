@@ -18,3 +18,7 @@ export const loginSucceed = user => ({
   type: UserActionTypes.LOGIN_SUCCEED,
   payload: user
 })
+
+export const checkUserSession = () => ({
+  type: UserActionTypes.CHECK_USER_SESSION
+})
