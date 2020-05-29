@@ -6,15 +6,15 @@ import { createStructuredSelector } from 'reselect'
 
 import './index.scss'
 
-import { auth } from 'firebase-utils'
 import CartIcon from 'components/cart-icon'
 import CartDropdown from 'components/cart-dropdown'
 import { ReactComponent as Logo } from 'assets/crown.svg'
 import { selectCartVisible } from 'stores/cart/selectors'
 import { selectCurrentUser } from 'stores/user/selectors'
+import { signOutStart } from 'stores/user/actions'
 import { clearCart } from 'stores/cart/actions'
 
-const Header = ({ currentUser, visible, clearCart }) => (
+const Header = ({ currentUser, visible, clearCart, signOutStart }) => (
   <div
     className="header"
   >
@@ -46,7 +46,7 @@ const Header = ({ currentUser, visible, clearCart }) => (
         currentUser ?
           <div
             className="option"
-            onClick={ () => auth.signOut() }
+            onClick={ signOutStart }
           >Sign Out</div>
           :
           <Link
@@ -71,7 +71,8 @@ const mapStateToProps = createStructuredSelector({
 })
 
 const mapDispatchToProps = dispatch => ({
-  clearCart: () => dispatch(clearCart())
+  clearCart: () => dispatch(clearCart()),
+  signOutStart: () => dispatch(signOutStart())
 })
 
 export default connect(

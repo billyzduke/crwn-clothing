@@ -22,3 +22,16 @@ export const loginSucceed = user => ({
 export const checkUserSession = () => ({
   type: UserActionTypes.CHECK_USER_SESSION
 })
+
+export const signOutStart = () => ({
+  type: UserActionTypes.SIGN_OUT_START
+})
+
+export const signOutFail = error => ({
+  type: UserActionTypes.SIGN_OUT_FAIL,
+  payload: error
+})
+
+export const signOutSucceed = () => ({
+  type: UserActionTypes.SIGN_OUT_SUCCEED
+})
