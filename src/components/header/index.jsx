@@ -12,16 +12,14 @@ import { ReactComponent as Logo } from 'assets/crown.svg'
 import { selectCartVisible } from 'stores/cart/selectors'
 import { selectCurrentUser } from 'stores/user/selectors'
 import { signOutStart } from 'stores/user/actions'
-import { clearCart } from 'stores/cart/actions'
 
-const Header = ({ currentUser, visible, clearCart, signOutStart }) => (
+const Header = ({ currentUser, visible, signOutStart }) => (
   <div
     className="header"
   >
     <Link
       className="logo-container"
       to="/"
-      onClick={ clearCart }
     >
       <Logo
         className="logo"
@@ -71,7 +69,6 @@ const mapStateToProps = createStructuredSelector({
 })
 
 const mapDispatchToProps = dispatch => ({
-  clearCart: () => dispatch(clearCart()),
   signOutStart: () => dispatch(signOutStart())
 })
 
