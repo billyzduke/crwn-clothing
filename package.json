@@ -33,6 +33,10 @@
   "eslintConfig": {
     "extends": "react-app",
     "rules": {
+      "arrow-parens": [
+        "error",
+        "as-needed"
+      ],
       "comma-spacing": [
         "error",
         {
@@ -58,7 +62,10 @@
       ],
       "indent": [
         "error",
-        2
+        2,
+        {
+          "SwitchCase": 1
+        }
       ],
       "semi": [
         "error",

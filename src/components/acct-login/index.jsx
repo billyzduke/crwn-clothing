@@ -1,9 +1,10 @@
 // <AcctLogin />
 import React from 'react'
+import { connect } from 'react-redux'
 
 import './index.scss'
 
-import { auth, signInWithGoogle } from 'firebase-utils'
+import { loginGoogleStart, loginEmailStart } from 'stores/user/actions'
 import FormInput from 'components/form-input'
 import FormButton from 'components/form-button'
 
@@ -26,22 +27,13 @@ class AcctLogin extends React.Component {
 
   handleSubmit = async e => {
     e.preventDefault()
+    const { loginEmailStart } = this.props
     const { email, password } = this.state
-
-    try {
-      await auth.signInWithEmailAndPassword(email, password)
-      this.setState({
-        email: '',
-        password: ''
-      })
-    } catch(error) {
-      console.log(error)
-    }
-
-
+    loginEmailStart(email, password)
   }
 
   render() {
+    const { loginGoogleStart } = this.props
     return (
       <div
         className='login'
@@ -77,7 +69,8 @@ class AcctLogin extends React.Component {
               Sign In
             </FormButton>
             <FormButton
-              onClick={ signInWithGoogle }
+              type="button"
+              onClick={ loginGoogleStart }
               isGoogleSignIn
             >
               Sign In with Google
@@ -89,4 +82,9 @@ class AcctLogin extends React.Component {
   }
 }
 
-export default AcctLogin
+const mapDispatchToProps = dispatch => ({
+  loginEmailStart: (email, password) => dispatch(loginEmailStart({ email, password })),
+  loginGoogleStart: () => dispatch(loginGoogleStart())
+})
+
+export default connect(null, mapDispatchToProps)(AcctLogin)

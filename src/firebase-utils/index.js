@@ -61,8 +61,8 @@ export const firestore = firebase.firestore()
 // firestore.collections('users/[userId]/cartItems')
 // firestore.doc('users/[userId]/cartItems/[itemId]')
 
-const provider = new firebase.auth.GoogleAuthProvider()
-provider.setCustomParameters({ prompt:'select_account' })
-export const signInWithGoogle = () => auth.signInWithPopup(provider)
+export const googleProvider = new firebase.auth.GoogleAuthProvider()
+// provider.setCustomParameters({ prompt:'select_account' })
+// export const signInWithGoogle = () => auth.signInWithPopup(provider)
 
 export default firebase

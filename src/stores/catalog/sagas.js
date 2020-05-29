@@ -1,8 +1,8 @@
-import { takeLatest, call, put } from 'redux-saga/effects'
+import { takeLatest, all, call, put } from 'redux-saga/effects'
 
 import { firestore, mapSnapshot } from 'firebase-utils'
-import { CatalogActionTypes } from 'stores/catalog/types'
-import { fetchCatalogFailure, fetchCollectionSuccess } from 'stores/catalog/actions'
+import CatalogActionTypes from 'stores/catalog/types'
+import { fetchCatalogFail, fetchCollectionSucceed } from 'stores/catalog/actions'
 
 export function* fetchCatalogAsync() {
   const catalogRefs = {
@@ -13,9 +13,9 @@ export function* fetchCatalogAsync() {
     try {
       catalogRefs[ref] = yield catalogRefs[ref].get()
       catalogRefs[ref] = yield call(mapSnapshot, catalogRefs[ref])
-      yield put(fetchCollectionSuccess(ref, catalogRefs[ref]))
+      yield put(fetchCollectionSucceed(ref, catalogRefs[ref]))
     } catch (fetchError) {
-      yield put(fetchCatalogFailure(fetchError))
+      yield put(fetchCatalogFail(fetchError))
     }
   }
 }
@@ -25,4 +25,10 @@ export function* fetchCatalogStart() {
     CatalogActionTypes.FETCH_CATALOG_START,
     fetchCatalogAsync
   )
+}
+
+export function* catalogSagas() {
+  yield all([
+    call(fetchCatalogStart)
+  ])
 }

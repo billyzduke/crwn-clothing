@@ -1,4 +1,4 @@
-import { CartActionTypes } from 'stores/cart/types'
+import CartActionTypes from 'stores/cart/types'
 
 export const addItem = pid => ({
   type: CartActionTypes.ADD_ITEM,
