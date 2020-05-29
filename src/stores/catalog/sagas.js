@@ -1,4 +1,4 @@
-import { takeEvery, call, put } from 'redux-saga/effects'
+import { takeLatest, call, put } from 'redux-saga/effects'
 
 import { firestore, mapSnapshot } from 'firebase-utils'
 import { CatalogActionTypes } from 'stores/catalog/types'
@@ -21,7 +21,7 @@ export function* fetchCatalogAsync() {
 }
 
 export function* fetchCatalogStart() {
-  yield takeEvery(
+  yield takeLatest(
     CatalogActionTypes.FETCH_CATALOG_START,
     fetchCatalogAsync
   )
