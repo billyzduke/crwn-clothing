@@ -10,16 +10,10 @@ import { checkUserSession } from 'stores/user/actions'
 import { fetchCatalogStart } from 'stores/catalog/actions'
 
 class App extends React.Component {
-  unsubscribeFromAuth = null
-
   componentDidMount() {
     const { checkUserSession, fetchCatalogStart } = this.props
     checkUserSession()
     fetchCatalogStart()
-  }
-
-  componentWillUnmount() {
-    this.unsubscribeFromAuth()
   }
 
   render() {

@@ -1,26 +1,31 @@
 // <FormInput />
 import React from 'react'
+import { Field, ErrorMessage } from 'formik'
 
 import './index.scss'
 
-const FormInput = ({ handleChange, label, ...etcProps }) => (
+const FormInput = ({ name, label, type, value }) => (
   <div
     className="form-input-group"
   >
-    <input
+    <Field
       className="form-input"
-      onChange={ handleChange }
-      { ...etcProps }
+      name={ name }
+      type={ type }
     />
     {
       label ?
         (
           <label
-            className={ `${etcProps.value.length ? 'shrink': ''} form-input-label` }
+            htmlFor={ name }
+            className={ `${value.length ? 'shrink': ''} form-input-label` }
           >{ label }</label>
         )
-        :null
+        : null
     }
+    <ErrorMessage
+      name={ name }
+    />
   </div>
 )
 
