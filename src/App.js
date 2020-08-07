@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 
@@ -9,26 +9,18 @@ import { selectCurrentUser } from 'stores/user/selectors'
 import { checkUserSession } from 'stores/user/actions'
 import { fetchCatalogStart } from 'stores/catalog/actions'
 
-class App extends React.Component {
-  unsubscribeFromAuth = null
-
-  componentDidMount() {
-    const { checkUserSession, fetchCatalogStart } = this.props
+const App = ({ checkUserSession, fetchCatalogStart, selectCurrentUser }) => {
+  useEffect(() => {
     checkUserSession()
     fetchCatalogStart()
-  }
+  }, [checkUserSession, fetchCatalogStart])
 
-  componentWillUnmount() {
-    this.unsubscribeFromAuth()
-  }
-
-  render() {
-    return (
-      <CatalogOverviewContainer
-        { ...this.props }
-      />
-    )
-  }
+  return (
+    <CatalogOverviewContainer
+      checkUserSession
+      selectCurrentUser
+    />
+  )
 }
 
 const mapStateToProps = createStructuredSelector({
