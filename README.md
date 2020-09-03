@@ -9,7 +9,7 @@ You can compare my version to the original here: https://github.com/ZhangMYihua/
 
 A good single file to start with would be:
 
-https://github.com/billyzduke/crwn-clothing/client/src/stores/catalog/selectors.js
+https://github.com/billyzduke/crwn-clothing/tree/context-api/src/stores/catalog/selectors.js
 
 vs.
 
