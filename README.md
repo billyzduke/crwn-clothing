@@ -1,3 +1,19 @@
+
+# crwn-clothing
+
+This is the current state of a demo project I've been working on in order to keep myself code-focused during recent unemployment. Although it would take some time to explain exactly how, this is quite a different beast from the example put forward in the original lesson plan. I had a number of issues with the methods by which the original was named and configured, and therefore I made numerous alterations, both minor and major, to bring the project more in line with my own personal preferences, as well as more in line with common features of real world projects I've tackled previously.
+
+To give one example of this: the original's product catalog data is organized as a single object (at first a single static JSON, then a single table in a Firebase database), where individual items are nested within the categories that contain them. I reconfigured items and categories to be two distinct tables, so that overall handling could be made more flexible, first and foremost being that items can now be associated with more than one category (without breaking everything).
+
+You can compare my version to the original here: https://github.com/ZhangMYihua/react-context-lesson
+
+A good single file to start with would be:
+https://github.com/billyzduke/crwn-clothing/client/src/stores/catalog/selectors.js
+vs.
+https://github.com/ZhangMYihua/react-context-lesson/blob/master/src/redux/shop/shop.selectors.js
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
