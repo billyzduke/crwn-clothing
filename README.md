@@ -8,11 +8,14 @@ To give one example of this: the original's product catalog data is organized as
 You can compare my version to the original here: https://github.com/ZhangMYihua/react-context-lesson
 
 A good single file to start with would be:
+
 https://github.com/billyzduke/crwn-clothing/client/src/stores/catalog/selectors.js
+
 vs.
+
 https://github.com/ZhangMYihua/react-context-lesson/blob/master/src/redux/shop/shop.selectors.js
 
-
+###
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
